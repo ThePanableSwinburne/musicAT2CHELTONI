@@ -91,7 +91,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="mt-5 mb-3 clearfix">
-                        <h2 class="pull-left">Chelton's Music</h2>
+                        <h2 class="pull-left">Chelton's Computer Store</h2>
                          <div class="pull-right">
                             <button class="btn btn-link" onclick="toggleDarkMode()">Toggle Dark Mode</button>
                          </div>
