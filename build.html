@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <title>Computer Build</title>
+</head>
+<body onload = "start()">
+  <h1>Computer Build Configuration</h1>
+
+  <h2>Base Model</h2>
+  <p>Base Model Cost: $500</p>
+
+  <h2>Component Choices</h2>
+
+  <h3>RAM</h3>
+  <input type="checkbox" id="ramCheckbox">
+  <label for="ramCheckbox">8GB RAM - $50</label>
+  <br>
+
+  <h3>Storage</h3>
+  <input type="checkbox" id="storageCheckbox">
+  <label for="storageCheckbox">256GB SSD - $80</label>
+  <br>
+
+  <h3>Display</h3>
+  <input type="checkbox" id="displayCheckbox">
+  <label for="displayCheckbox">24 inches - $200</label>
+  <br>
+
+  <h3>Graphics Card</h3>
+  <input type="checkbox" id="gpuCheckbox">
+  <label for="gpuCheckbox">Integrated Graphics Card - $0</label>
+  <br>
+
+  <h2>Total Cost</h2>
+  <p id="totalCost">Total Cost: $500</p>
+
+  <div id="dataContainer"></div>
+
+  <script>
+    // Function to update the total cost based on component choices
+    function updateTotalCost() {
+      let totalCost = 500; // Base model cost
+
+      // Check if component choices are selected and add their cost
+      if (document.getElementById('ramCheckbox').checked) {
+        totalCost += 50; // RAM cost
+      }
+
+      if (document.getElementById('storageCheckbox').checked) {
+        totalCost += 80; // Storage cost
+      }
+
+      if (document.getElementById('displayCheckbox').checked) {
+        totalCost += 200; // Display cost
+      }
+
+      if (document.getElementById('gpuCheckbox').checked) {
+        totalCost += 0; // Graphics card cost
+      }
+
+      // Update the total cost displayed on the page
+      document.getElementById('totalCost').textContent = 'Total Cost: $' + totalCost;
+    }
+
+
+    function fetchData() {
+            $.ajax({
+                url: 'http://localhost/music/fetch_data.php',
+                dataType: 'json',
+                success: function (data) {
+                    // Handle the received data
+                    console.log(data);
+
+                    // Process the data as desired (e.g., display in a list)
+                    var dataContainer = document.getElementById('dataContainer');
+                    var list = document.createElement('ul');
+
+                    for (var i = 0; i < data.length; i++) {
+                        var listItem = document.createElement('li');
+                        listItem.textContent = 'Brand: ' + data[i].brand + ', Capacity: ' + data[i].capacity + ', Price: ' + data[i].price;
+                        list.appendChild(listItem);
+                    }
+
+                    dataContainer.appendChild(list);
+                },
+                error: function () {
+                    console.log('Error occurred during data fetch.');
+                }
+            });
+        }
+
+    function start()
+    {
+      fetchData();
+    }
+
+    // Event listeners for component choices
+    document.getElementById('ramCheckbox').addEventListener('change', updateTotalCost);
+    document.getElementById('storageCheckbox').addEventListener('change', updateTotalCost);
+    document.getElementById('displayCheckbox').addEventListener('change', updateTotalCost);
+    document.getElementById('gpuCheckbox').addEventListener('change', updateTotalCost);
+  </script>
+</body>
+</html>
