@@ -63,32 +63,22 @@
       document.getElementById('totalCost').textContent = 'Total Cost: $' + totalCost;
     }
 
+    
 
     function fetchData() {
+      let data = "";
             $.ajax({
                 url: 'http://localhost/music/fetch_data.php',
                 dataType: 'json',
                 success: function (data) {
-                    // Handle the received data
-                    console.log(data);
 
-                    // Process the data as desired (e.g., display in a list)
-                    var dataContainer = document.getElementById('dataContainer');
-                    var list = document.createElement('ul');
-
-                    for (var i = 0; i < data.length; i++) {
-                        var listItem = document.createElement('li');
-                        listItem.textContent = 'Brand: ' + data[i].brand + ', Capacity: ' + data[i].capacity + ', Price: ' + data[i].price;
-                        list.appendChild(listItem);
-                    }
-
-                    dataContainer.appendChild(list);
                 },
                 error: function () {
                     console.log('Error occurred during data fetch.');
                 }
             });
-        }
+      console.log(data);
+    }
 
     function start()
     {
